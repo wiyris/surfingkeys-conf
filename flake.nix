@@ -1,6 +1,5 @@
 {
   inputs.nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-24.11";
-
   outputs = {
     self,
     nixpkgs,
@@ -12,9 +11,6 @@
       buildInputs = with pkgs; [
         nodejs-18_x
       ];
-      shellHook = ''
-        echo "Welcome to the devShell!"
-      '';
     };
   };
 }
