@@ -4,11 +4,13 @@ import searchEngines from "./search-engines.js"
 
 export default {
   settings: {
+    digitForRepeat: false,
     hintAlign: "left",
     hintCharacters: "qwertasdfgzxcvb",
     omnibarSuggestionTimeout: 500,
+    focusFirstCandidate: false,
     richHintsForKeystroke: 1,
-    defaultSearchEngine: "ka",
+    defaultSearchEngine: "bs",
     stealFocusOnLoad: false,
     theme,
   },
@@ -17,10 +19,10 @@ export default {
   searchEngines,
 
   // Leader for site-specific mappings
-  siteleader: "<Space>",
+  siteleader: "a",
 
   // Leader for OmniBar searchEngines
-  searchleader: "a",
+  searchleader: "s",
 
   // Array containing zero or more log levels to enable: log, warn, error
   logLevels: [

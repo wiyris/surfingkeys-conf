@@ -47,7 +47,7 @@ const googleCustomSearch = (opts) => {
           <div class="title"><strong>${htmlPurify(s.htmlTitle)}</strong></div>
           <div>${htmlPurify(s.htmlSnippet)}</div>
         </div>
-      `
+      `,
       ),
     priv: true,
     ...opts,
@@ -152,8 +152,8 @@ completions.at.callback = async (response) => {
         <img style="width:60px" src="${icon}" alt="${s.Name}">
         <div>
           <div class="title"><strong>${prefix}${htmlPurify(
-      title
-    )}</strong></div>
+            title,
+          )}</strong></div>
           <span>${htmlPurify(s.TagLine || s.Description || "")}</span>
         </div>
       </div>
@@ -253,7 +253,7 @@ completions.so = {
 
 completions.so.callback = (response) =>
   JSON.parse(response.text).items.map((s) =>
-    urlItem(`[${s.score}] ${s.title}`, s.link, { query: false })
+    urlItem(`[${s.score}] ${s.title}`, s.link, { query: false }),
   )
 
 // StackExchange - all sites
@@ -346,7 +346,7 @@ completions.vw.callback = (response) =>
   JSON.parse(response.text)[1].map((r) =>
     urlItem(r, `https://vim.fandom.com/wiki/${encodeURIComponent(r)}`, {
       query: false,
-    })
+    }),
   )
 
 // ****** Shopping & Food ****** //
@@ -361,49 +361,6 @@ completions.az = {
 }
 
 completions.az.callback = (response) => JSON.parse(response.text)[1]
-
-// Craigslist
-completions.cl = {
-  alias: "cl",
-  name: "craigslist",
-  search: "https://www.craigslist.org/search/sss?query=",
-  compl:
-    "https://www.craigslist.org/suggest?v=12&type=search&cat=sss&area=1&term=",
-}
-
-completions.cl.callback = (response) => JSON.parse(response.text)
-
-// EBay
-completions.eb = {
-  alias: "eb",
-  name: "ebay",
-  search: "https://www.ebay.com/sch/i.html?_nkw=",
-  compl: "https://autosug.ebay.com/autosug?callback=0&sId=0&kwd=",
-}
-
-completions.eb.callback = (response) => JSON.parse(response.text).res.sug
-
-// Yelp
-completions.yp = {
-  alias: "yp",
-  name: "yelp",
-  search: "https://www.yelp.com/search?find_desc=",
-  compl: "https://www.yelp.com/search_suggest/v2/prefetch?prefix=",
-}
-
-completions.yp.callback = (response) => {
-  const res = JSON.parse(response.text).response
-  const words = []
-  res.forEach((r) => {
-    r.suggestions.forEach((s) => {
-      const w = s.query
-      if (words.indexOf(w) === -1) {
-        words.push(w)
-      }
-    })
-  })
-  return words
-}
 
 // ****** General References, Calculators & Utilities ****** //
 completions.un = {
@@ -423,7 +380,7 @@ completions.un.callback = (response) => {
         (word) =>
           `${word[0]?.toUpperCase() ?? ""}${
             word.length > 1 ? word.slice(1) : ""
-          }`
+          }`,
       )
       .join(" ")
   const codeSpanStyle =
@@ -440,7 +397,7 @@ completions.un.callback = (response) => {
         <span style="${codeSpanStyle}">&amp;#${parseInt(value, 16)};</span>
         <span>${titleCase(name.toLowerCase())}</span>
       </div>
-    `
+    `,
   )
 }
 
@@ -460,7 +417,7 @@ const parseDatamuseRes = (res, o = {}) => {
     ) {
       for (const d of r.defs.slice(
         0,
-        opts.maxDefs <= -1 ? undefined : opts.maxDefs
+        opts.maxDefs <= -1 ? undefined : opts.maxDefs,
       )) {
         const ds = d.split("\t")
         const partOfSpeech = `(${ds[0]})`
@@ -604,7 +561,7 @@ completions.wa.callback = (response, { query }) => {
             <div class="title"><strong>Did you mean...?</strong></div>
             <div class="title">${s.val}</div>
           </div>
-        `
+        `,
       )
     }
     return [
@@ -665,7 +622,7 @@ completions.wa.callback = (response, { query }) => {
     <div>
       <div class="title"><strong>${r.title}</strong></div>
       ${htmlForEach(r.values)}
-    </div>`
+    </div>`,
   )
 }
 
@@ -802,50 +759,42 @@ completions.ka = {
     }),
 }
 
-//  ****** Elixir ****** //
-
-// Hex.pm
-completions.hx = {
-  alias: "hx",
-  name: "hex",
-  search: "https://hex.pm/packages?sort=downloads&search=",
-  compl: "https://hex.pm/api/packages?sort=downloads&hx&search=",
+// Brave
+completions.bs = {
+  alias: "bs",
+  name: "brave-search",
+  search: "https://search.brave.com/search?q=",
+  compl: "https://search.brave.com/api/suggest?q=",
 }
 
-completions.hx.callback = (response) =>
-  JSON.parse(response.text).map(
-    (s) =>
-      suggestionItem({ url: s.html_url })`
-    <div>
-      <div class="title">${s.repository}/<strong>${s.name}</strong></div>
-      <div>${s.downloads?.all ? `[↓${s.downloads.all}]` : ""}</div>
-      <div>${s.meta?.description ?? ""}</div>
-    </div>
-  `
-  )
+completions.bs.callback = (response) => JSON.parse(response.text)[1]
 
-// hexdocs
-// Same as hex but links to documentation pages
-completions.hd = {
-  alias: "hd",
-  name: "hexdocs",
-  search: "https://hex.pm/packages?sort=downloads&search=",
-  compl: "https://hex.pm/api/packages?sort=downloads&hd&search=",
+completions.bi = {
+  alias: "bi",
+  name: "brave-images",
+  search: "https://search.brave.com/images?q=",
+  compl: "https://search.brave.com/api/suggest?q=",
 }
 
-completions.hd.callback = (response) =>
-  JSON.parse(response.text).map(
-    (s) =>
-      suggestionItem({
-        url: `https://hexdocs.pm/${encodeURIComponent(s.name)}`,
-      })`
-    <div>
-      <div class="title">${s.repository}/<strong>${s.name}</strong></div>
-      <div>${s.downloads?.all ? `[↓${s.downloads.all}]` : ""}</div>
-      <div>${s.meta?.description ?? ""}</div>
-    </div>
-  `
-  )
+completions.bi.callback = (response) => JSON.parse(response.text)[1]
+
+completions.bn = {
+  alias: "bn",
+  name: "brave-news",
+  search: "https://search.brave.com/news?q=",
+  compl: "https://search.brave.com/api/suggest?q=",
+}
+
+completions.bn.callback = (response) => JSON.parse(response.text)[1]
+
+completions.bv = {
+  alias: "bv",
+  name: "brave-videos",
+  search: "https://search.brave.com/videos?q=",
+  compl: "https://search.brave.com/api/suggest?q=",
+}
+
+completions.bv.callback = (response) => JSON.parse(response.text)[1]
 
 // ****** Golang ****** //
 
@@ -876,56 +825,6 @@ completions.gg = googleCustomSearch({
 //   return urlItem(prefix + s.path, `https://godoc.org/${s.path}`)
 // })
 
-// ****** Haskell ****** //
-
-// Hackage
-// TODO: Re-enable
-// completions.ha = {
-//   alias:  "ha",
-//   name:   "hackage",
-//   search: "https://hackage.haskell.org/packages/search?terms=",
-//   compl:  "https://hackage.haskell.org/packages/search.json?terms=",
-// }
-//
-// completions.ha.callback = (response) => JSON.parse(response.text)
-//   .map((s) => urlItem(s.name, `https://hackage.haskell.org/package/${s.name}`))
-
-// Hoogle
-completions.ho = {
-  alias: "ho",
-  name: "hoogle",
-  search: "https://www.haskell.org/hoogle/?hoogle=",
-  compl: "https://www.haskell.org/hoogle/?mode=json&hoogle=",
-}
-
-completions.ho.callback = (response) =>
-  JSON.parse(response.text).map((s) => {
-    const pkgInfo =
-      s.package.name && s.module.name
-        ? htmlNode`<div style="font-size:0.8em; margin-bottom: 0.8em; margin-top: 0.8em">[${s.package.name}] ${s.module.name}</div>`
-        : ""
-    return suggestionItem({ url: s.url })`
-    <div>
-      <div class="title" style="font-size: 1.1em; font-weight: bold">${htmlPurify(
-        s.item
-      )}</div>
-      ${pkgInfo}
-      <div style="padding: 0.5em">${htmlPurify(s.docs)}</div>
-    </div>
-  `
-  })
-
-// Haskell Wiki
-completions.hw = {
-  alias: "hw",
-  name: "haskellwiki",
-  search: "https://wiki.haskell.org/index.php?go=go&search=",
-  compl:
-    "https://wiki.haskell.org/api.php?action=opensearch&format=json&formatversion=2&namespace=0&limit=10&suggest=true&search=",
-}
-
-completions.hw.callback = (response) => JSON.parse(response.text)[1]
-
 // ****** HTML, CSS, JavaScript, NodeJS, ... ****** //
 
 // caniuse
@@ -944,7 +843,7 @@ completions.ci.getData = async () => {
     return JSON.parse(storedData)
   }
   const data = JSON.parse(
-    await runtimeHttpRequest("https://caniuse.com/data.json")
+    await runtimeHttpRequest("https://caniuse.com/data.json"),
   )
   localStorage.set(storageKey, JSON.stringify(data))
   return data
@@ -1002,7 +901,7 @@ completions.md.callback = (response) => {
         <div style="font-size:0.8em"><em>${s.slug}</em></div>
         <div>${s.summary}</div>
       </div>
-    `
+    `,
   )
 }
 
@@ -1021,7 +920,7 @@ completions.np.callback = (response) =>
     const date = s.package?.date ? prettyDate(new Date(s.package.date)) : ""
     const flags = s.flags
       ? Object.keys(s.flags).map(
-          (f) => htmlNode`[<span style='color:#ff4d00'>⚑</span> ${f}] `
+          (f) => htmlNode`[<span style='color:#ff4d00'>⚑</span> ${f}] `,
         )
       : []
     return suggestionItem({ url: s.package.links.npm })`
@@ -1051,14 +950,16 @@ completions.ts = {
 
 completions.ts.callback = async (response) => {
   const res = JSON.parse(response.text)
-  return Object.entries(res.hits.reduce((acc, hit) => {
-    const lvl0 = hit.hierarchy.lvl0
-    if (!acc[lvl0]) {
-      acc[lvl0] = []
-    }
-    acc[lvl0].push(hit)
-    return acc
-  }, {}))
+  return Object.entries(
+    res.hits.reduce((acc, hit) => {
+      const lvl0 = hit.hierarchy.lvl0
+      if (!acc[lvl0]) {
+        acc[lvl0] = []
+      }
+      acc[lvl0].push(hit)
+      return acc
+    }, {}),
+  )
     .sort(([lvl0A], [lvl0B]) => lvl0A.localeCompare(lvl0B))
     .flatMap(([lvl0, hits]) => {
       return hits.map((hit) => {
@@ -1071,7 +972,7 @@ completions.ts.callback = async (response) => {
             }
             return `${acc ? acc + " > " : ""}${name}`
           },
-          ""
+          "",
         )
         const title = hit.hierarchy[lvl]
         const desc = hit.content
@@ -1089,7 +990,26 @@ completions.ts.callback = async (response) => {
     })
 }
 
+// ****** Other coding ****** //
+completions.cd = {
+  alias: "cd",
+  name: "search-code",
+  search: "https://searchcode.com/?q=",
+}
+
+completions.ch = {
+  alias: "ch",
+  name: "cheatsheets",
+  search: "https://cheatsheets.zip/?q=",
+}
+
 // ****** Social Media & Entertainment ****** //
+
+completions.tW = {
+  alias: "tW",
+  name: "twitch",
+  search: "https://www.twitch.tv/search?term=",
+}
 
 // Hacker News (YCombinator)
 completions.hn = {
@@ -1122,7 +1042,7 @@ completions.hn.callback = (response) => {
         title = s.objectID
     }
     const url = `https://news.ycombinator.com/item?id=${encodeURIComponent(
-      s.objectID
+      s.objectID,
     )}`
     return suggestionItem({ url })`
       <div>
@@ -1150,8 +1070,8 @@ completions.tw.callback = (response, { query }) => {
     results.unshift(
       urlItem(
         query,
-        `https://twitter.com/${encodeURIComponent(query.replace(/^@/, ""))}`
-      )
+        `https://twitter.com/${encodeURIComponent(query.replace(/^@/, ""))}`,
+      ),
     )
   }
   return results
@@ -1176,28 +1096,28 @@ completions.re.thumbs = {
 
 completions.re.callback = async (response, { query }) => {
   const [_, sub, __, q = ""] = query.match(
-    /^\s*\/?(r\/[a-zA-Z0-9_]+)(\s+(.*))?/
+    /^\s*\/?(r\/[a-zA-Z0-9_]+)(\s+(.*))?/,
   ) ?? [null, null, null, query]
   if (sub && q) {
     response = {
       text: await runtimeHttpRequest(
         `https://api.reddit.com/${encodeURIComponent(
-          sub
+          sub,
         )}/search?syntax=plain&sort=relevance&restrict_sr=on&limit=20&q=${encodeURIComponent(
-          q
-        )}`
+          q,
+        )}`,
       ),
     }
   } else if (sub) {
     const res = await runtimeHttpRequest(
       `https://www.reddit.com/api/search_reddit_names.json?typeahead=true&exact=false&query=${encodeURIComponent(
-        sub
-      )}`
+        sub,
+      )}`,
     )
     return JSON.parse(res).names.map((name) =>
       urlItem(`r/${name}`, `https://reddit.com/r/${encodeURIComponent(name)}`, {
         query: `r/${name}`,
-      })
+      }),
     )
   }
   return JSON.parse(response.text).data.children.map(({ data }) => {
@@ -1216,17 +1136,17 @@ completions.re.callback = async (response, { query }) => {
             <strong><span style="font-size: 1.2em; margin-right: 0.2em">↑</span>${
               data.score
             }</strong> ${
-      data.title
-    } <span style="font-size: 0.8em; opacity: 60%">(${data.domain})</span>
+              data.title
+            } <span style="font-size: 0.8em; opacity: 60%">(${data.domain})</span>
           </div>
           <div>
             <span style="font-size: 0.8em"><span style="color: opacity: 70%">r/${
               data.subreddit
             }</span> • <span style="color: opacity: 70%">${
-      data.num_comments ?? "unknown"
-    }</span> <span style="opacity: 60%">comments</span> • <span style="opacity: 60%">submitted ${relDate} by</span> <span style="color: opacity: 70%">${
-      data.author
-    }</span></span>
+              data.num_comments ?? "unknown"
+            }</span> <span style="opacity: 60%">comments</span> • <span style="opacity: 60%">submitted ${relDate} by</span> <span style="color: opacity: 70%">${
+              data.author
+            }</span></span>
           </div>
         </div>
       </div>
@@ -1320,7 +1240,7 @@ completions.hf.callback = (response) => {
           <div><strong>${m.id}</strong></div>
           <div><span style="font-size: 0.9em; opacity: 70%">model</span></div>
         </div>
-     `
+     `,
     ),
     ...res.datasets.map(
       (d) =>
@@ -1331,78 +1251,87 @@ completions.hf.callback = (response) => {
           <div><strong>${d.id}</strong></div>
           <div><span style="font-size: 0.9em; opacity: 70%">dataset</span></div>
         </div>
-     `
+     `,
     ),
   ]
 }
 
-/**
- * @param {"crates"|"docs"} kind - The kind of completions to return.
- * @returns {function} A callback function that takes a response object and returns an array of completion items.
- */
-const cratesCb = (kind) => (response) => {
-  const res = JSON.parse(response.text)
-  return res.crates.map((s) => {
-    const title = s.name
-    const url = kind === "crates" ? `https://crates.io/crates/${s.name}` : `https://docs.rs/${s.name}`
-    let meta = ""
-    if (s.downloads) {
-      meta += `[↓${s.downloads}] `
-    }
-    if (s.recent_downloads) {
-      meta += `[↓${s.recent_downloads} recent] `
-    }
-    if (s.max_version) {
-      meta += `[v${s.max_version}] `
-    }
-    return suggestionItem({ url })`
-      <div>
-        <div class="title"><strong>${title}</strong> ${meta} ${kind}</div>
-        <div>${s.description || ""}</div>
-        <div style="opacity: 0.6; font-weight: bold; font-size: 0.8em">${s.repository || ""}</div>
-      </div>
-    `
-  })
+// ****** Music ****** //
+
+completions.ay = {
+  alias: "ay",
+  name: "aoty",
+  search: "https://www.albumoftheyear.org/search/?q=",
 }
 
-// Crates.io
-completions.rc = {
-  alias: "rc",
-  name: "crates",
-  search: "https://crates.io/search?q=",
-  compl: "https://crates.io/api/v1/crates?t=0&q=",
-  callback: cratesCb("crates"),
+completions.gn = {
+  alias: "gn",
+  name: "genius",
+  search: "https://genius.com/search?q=",
 }
 
-// Crates.io (Docs)
-completions.rd = {
-  alias: "rd",
-  name: "crates-docs",
-  search: "https://docs.rs/releases/search?query=",
-  compl: "https://crates.io/api/v1/crates?t=1&q=",
-  callback: cratesCb("docs"),
+completions.lf = {
+  alias: "lf",
+  name: "lastfm",
+  search: "https://www.last.fm/search?q=",
 }
 
-// Query.rs (Docs for Stdlib + Crates)
-completions.rr = {
-  alias: "rr",
-  name: "query-rs",
-  search: "https://query.rs/redirect/",
-  compl: "https://query.rs/suggest/",
+completions.ym = {
+  alias: "ym",
+  name: "youtube-music",
+  search: "https://music.youtube.com/search?q=",
 }
 
-completions.rr.callback = (response) => {
-  const res = JSON.parse(response.text)
-  const items = res[1] ?? []
-  return items.map((s) => {
-    const [title, url] = s.split(' - ', 2)
-    return suggestionItem({ url })`
-      <div>
-        <div class="title"><strong>${title}</strong></div>
-        <div style="opacity: 0.6; font-weight: bold; font-size: 0.8em">${url}</div>
-      </div>
-    `
-  })
+completions.st = {
+  alias: "sp",
+  name: "spotify",
+  search: "https://open.spotify.com/search/",
+}
+
+completions.td = {
+  alias: "td",
+  name: "tidal",
+  search: "https://listen.tidal.com/search?q=",
+}
+
+// ****** Gaming ****** //
+
+completions.st = {
+  alias: "st",
+  name: "steam",
+  search: "https://store.steampowered.com/search/?term=",
+}
+
+completions.gd = {
+  alias: "gd",
+  name: "ggdeals",
+  search: "https://gg.deals/search/?title=",
+}
+
+completions.hl = {
+  alias: "hl",
+  name: "howlongtobeat",
+  search: "https://www.howlongtobeat.com/?q=",
+}
+
+// ****** Art ****** //
+
+completions.up = {
+  alias: "up",
+  name: "unsplash",
+  search: "https://unsplash.com/s/photos/",
+}
+
+completions.pi = {
+  alias: "pi",
+  name: "pinterest",
+  search: "https://www.pinterest.com/search/pins/?q=",
+}
+
+completions.px = {
+  alias: "px",
+  name: "pixiv",
+  search: "https://www.pixiv.net/tags/",
 }
 
 export default completions

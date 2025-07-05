@@ -1,12 +1,12 @@
 import actions from "./actions.js"
 import api from "./api.js"
-import help from "./help.js"
 import priv from "./conf.priv.js"
+import help from "./help.js"
 import util from "./util.js"
 
 const { categories } = help
 
-const { Clipboard, Front, Hints } = api
+const { Clipboard, Front, Hints, cmap } = api
 
 // Remove undesired default mappings
 const unmaps = {
@@ -17,6 +17,7 @@ const unmaps = {
     "oe",
     "ow",
     "oy",
+    "ox",
     "cp",
     ";cp",
     ";ap",
@@ -40,15 +41,42 @@ const unmaps = {
     "p",
     "<Ctrl-j>",
     "<Ctrl-h>",
+    "<Alt-s>",
   ],
   searchAliases: {
     s: ["g", "d", "b", "e", "w", "s", "h", "y"],
   },
+  pages: [
+    {
+      url: /matt-startpage.vercel.app/,
+      maps: ["t", "r", "f", "x", "E", "R", "T", "b"],
+    },
+    {
+      url: /mail.proton.me/,
+      maps: ["t", "f", "E", "T"],
+    },
+  ],
 }
 
 const maps = {}
 
 maps.global = [
+  {
+    alias: "<Alt-t>",
+    map: "<Alt-s>",
+    category: categories.misc,
+    description: "Toggle SurfingKeys",
+  },
+  {
+    alias: "<Ctrl-t>",
+    category: categories.misc,
+    description: "Open Startpage",
+    callback: () =>
+      actions.openLink("https://matt-startpage.vercel.app/", {
+        newTab: true,
+        active: true,
+      }),
+  },
   {
     alias: "F",
     map: "gf",
@@ -62,28 +90,70 @@ maps.global = [
     callback: actions.previewLink,
   },
   {
-    alias: "w",
-    map: "k",
-    category: categories.scroll,
-    description: "Scroll up",
-  },
-  {
-    alias: "s",
-    map: "j",
-    category: categories.scroll,
-    description: "Scroll down",
-  },
-  {
     alias: "K",
+    map: "E",
+    category: categories.tabs,
+    description: "Prev tab",
+  },
+  {
+    alias: "J",
+    map: "R",
+    category: categories.tabs,
+    description: "Next tab",
+  },
+  {
+    alias: "<Ctrl-u>",
     map: "e",
     category: categories.scroll,
     description: "Scroll half page up",
   },
   {
-    alias: "J",
+    alias: "<Ctrl-d>",
     map: "d",
     category: categories.scroll,
     description: "Scroll half page down",
+  },
+  {
+    alias: "H",
+    map: "S",
+    category: categories.pageNav,
+    description: "Backwards on history",
+  },
+  {
+    alias: "L",
+    map: "D",
+    category: categories.pageNav,
+    description: "Forwards on history",
+  },
+  {
+    alias: "d",
+    map: "x",
+    category: categories.tabs,
+    description: "Close a tab",
+  },
+  {
+    alias: "<Alt-Space>",
+    category: categories.omnibar,
+    description: "Open omnibar",
+    callback: () => Front.openOmnibar({ type: "URLs" }),
+  },
+  {
+    alias: "t",
+    category: categories.tabs,
+    description: "Search Tabs",
+    callback: () => Front.openOmnibar({ type: "Tabs" }),
+  },
+  {
+    alias: "u",
+    category: categories.tabs,
+    description: "Recently Closed Tabs",
+    callback: () => Front.openOmnibar({ type: "RecentlyClosed" }),
+  },
+  {
+    alias: "U",
+    category: categories.tabs,
+    description: "Open last closed tab",
+    callback: actions.openLast,
   },
   {
     alias: "gh",
@@ -133,7 +203,7 @@ maps.global = [
     description: "Copy link as Markdown",
     callback: () =>
       util.createHints("a[href]", (a) =>
-        Clipboard.write(`[${a.innerText}](${a.href})`)
+        Clipboard.write(`[${a.innerText}](${a.href})`),
       ),
   },
   {
@@ -279,12 +349,6 @@ maps.global = [
     category: categories.mouseClick,
     description: "Open a link in non-active new tab",
   },
-  {
-    alias: "oh",
-    category: categories.omnibar,
-    description: "Open URL from history",
-    callback: () => Front.openOmnibar({ type: "History" }),
-  },
   // {
   //   alias:       "\\A",
   //   description: "Open AWS service",
@@ -362,7 +426,7 @@ maps["www.google.com"] = [
     callback: () =>
       util.createHints(
         googleSearchResultSelector,
-        actions.openAnchor({ newTab: true, active: false })
+        actions.openAnchor({ newTab: true, active: false }),
       ),
   },
   {
@@ -399,7 +463,7 @@ maps["duckduckgo.com"] = [
     callback: () =>
       util.createHints(
         ddgSelector,
-        actions.openAnchor({ newTab: true, active: false })
+        actions.openAnchor({ newTab: true, active: false }),
       ),
   },
   {
@@ -441,7 +505,7 @@ maps["youtube.com"] = [
     callback: () =>
       util.createHints(
         "*[id='video-title']",
-        actions.openAnchor({ newTab: true })
+        actions.openAnchor({ newTab: true }),
       ),
   },
   {
@@ -465,7 +529,7 @@ maps["youtube.com"] = [
       actions.dispatchMouseEvents(
         document.querySelector("#movie_player .ytp-fullscreen-button"),
         "mousedown",
-        "click"
+        "click",
       ),
   },
   {
@@ -728,7 +792,7 @@ maps["twitter.com"] = [
     callback: () =>
       document
         .querySelector(
-          "a[role='button'][data-testid='SideNav_NewTweet_Button']"
+          "a[role='button'][data-testid='SideNav_NewTweet_Button']",
         )
         .click(),
   },
@@ -742,7 +806,7 @@ maps["twitter.com"] = [
     description: "Goto tweet",
     callback: () =>
       util.createHints(
-        "article, article div[data-focusable='true'][role='link'][tabindex='0']"
+        "article, article div[data-focusable='true'][role='link'][tabindex='0']",
       ),
   },
 ]
@@ -759,7 +823,6 @@ maps["bsky.app"] = [
     callback: actions.by.copyPostID,
   },
 ]
-
 
 maps["reddit.com"] = [
   {
@@ -798,7 +861,7 @@ maps["reddit.com"] = [
     callback: () =>
       util.createHints(
         ".title",
-        actions.openAnchor({ newTab: true, active: false })
+        actions.openAnchor({ newTab: true, active: false }),
       ),
   },
   {
@@ -812,7 +875,7 @@ maps["reddit.com"] = [
     callback: () =>
       util.createHints(
         ".comments",
-        actions.openAnchor({ newTab: true, active: false })
+        actions.openAnchor({ newTab: true, active: false }),
       ),
   },
 ]
@@ -859,7 +922,7 @@ maps["news.ycombinator.com"] = [
     callback: () =>
       util.createHints(
         ".subline>a[href^='item']",
-        actions.openAnchor({ newTab: true, active: false })
+        actions.openAnchor({ newTab: true, active: false }),
       ),
   },
   {
@@ -898,7 +961,7 @@ maps["producthunt.com"] = [
     description: "View product",
     callback: () =>
       util.createHints(
-        "ul[class^='postsList_'] > li > div[class^='item_'] > a"
+        "ul[class^='postsList_'] > li > div[class^='item_'] > a",
       ),
   },
   {
@@ -930,7 +993,7 @@ maps["behance.net"] = [
     callback: () =>
       util.createHints(
         ".rf-project-cover__title",
-        actions.openAnchor({ newTab: true, active: false })
+        actions.openAnchor({ newTab: true, active: false }),
       ),
   },
 ]
@@ -959,7 +1022,7 @@ maps["wikipedia.org"] = [
     description: "View page",
     callback: () =>
       util.createHints(
-        "#bodyContent :not(sup):not(.mw-editsection) > a:not([rel=nofollow])"
+        "#bodyContent :not(sup):not(.mw-editsection) > a:not([rel=nofollow])",
       ),
   },
   {
@@ -1295,7 +1358,12 @@ maps["chatgpt.com"] = [
     alias: "i",
     leader: "",
     description: "Focus input",
-    callback: () => setTimeout(() => Hints.dispatchMouseClick(document.querySelector("#prompt-textarea")), 0),
+    callback: () =>
+      setTimeout(
+        () =>
+          Hints.dispatchMouseClick(document.querySelector("#prompt-textarea")),
+        0,
+      ),
   },
 ]
 
@@ -1304,13 +1372,24 @@ maps["claude.ai"] = [
     alias: "i",
     leader: "",
     description: "Focus input",
-    callback: () => setTimeout(() => Hints.dispatchMouseClick(document.querySelector(".ProseMirror[contenteditable=true]")), 0),
+    callback: () =>
+      setTimeout(
+        () =>
+          Hints.dispatchMouseClick(
+            document.querySelector(".ProseMirror[contenteditable=true]"),
+          ),
+        0,
+      ),
   },
 ]
 
+// Omnibar bindings
+cmap("<Ctrl-j>", "<Tab>")
+cmap("<Ctrl-k>", "<Shift-Tab>")
+
 const registerDOI = (
   domain,
-  provider = actions.doi.providers.meta_citation_doi
+  provider = actions.doi.providers.meta_citation_doi,
 ) => {
   if (!maps[domain]) {
     maps[domain] = []
@@ -1339,7 +1418,7 @@ if (priv.doi_handler) {
   registerDOI("apa.org", () =>
     document
       .querySelector(".citation a")
-      ?.innerText?.replace(/^https:\/\/doi\.org\//, "")
+      ?.innerText?.replace(/^https:\/\/doi\.org\//, ""),
   )
   registerDOI("ashpublications.org")
   registerDOI("asnjournals.org")
@@ -1356,7 +1435,7 @@ if (priv.doi_handler) {
   registerDOI("elifesciences.org", () =>
     document
       .querySelector("meta[name='dc.identifier']")
-      ?.content?.replace(/^doi:/, "")
+      ?.content?.replace(/^doi:/, ""),
   )
   registerDOI("embopress.org")
   registerDOI("emerald.com", actions.doi.providers.meta_dcIdentifier_doi)
@@ -1369,12 +1448,12 @@ if (priv.doi_handler) {
   registerDOI("go.gale.com")
   registerDOI(
     "ieee.org",
-    () => document.querySelector(".stats-document-abstract-doi a")?.innerText
+    () => document.querySelector(".stats-document-abstract-doi a")?.innerText,
   )
   registerDOI("ingentaconnect.com", () =>
     document
       .querySelector("meta[name='DC.identifier']")
-      ?.content?.replace(/^info:doi\//, "")
+      ?.content?.replace(/^info:doi\//, ""),
   )
   registerDOI("jacc.or", actions.doi.providers.meta_dcIdentifier_doi)
   registerDOI("jamanetwork.com")
@@ -1385,16 +1464,16 @@ if (priv.doi_handler) {
   registerDOI("journals.lww.com")
   registerDOI(
     "journals.physiology.org",
-    actions.doi.providers.meta_dcIdentifier_doi
+    actions.doi.providers.meta_dcIdentifier_doi,
   )
   registerDOI("journals.plos.org")
   registerDOI(
     "journals.sagepub.com",
-    actions.doi.providers.meta_dcIdentifier_doi
+    actions.doi.providers.meta_dcIdentifier_doi,
   )
   registerDOI(
     "journals.uchicago.edu",
-    actions.doi.providers.meta_dcIdentifier_doi
+    actions.doi.providers.meta_dcIdentifier_doi,
   )
   registerDOI("jst.go.jp")
   registerDOI("karger.com")
@@ -1404,7 +1483,7 @@ if (priv.doi_handler) {
   registerDOI("mdpi.com")
   registerDOI(
     "msp.org",
-    () => document.querySelector(".paper-doi a")?.innerText
+    () => document.querySelector(".paper-doi a")?.innerText,
   )
   registerDOI("nature.com")
   registerDOI("nejm.org", actions.doi.providers.meta_dcIdentifier_doi)
@@ -1420,7 +1499,7 @@ if (priv.doi_handler) {
   registerDOI("research.manchester.ac.uk")
   registerDOI(
     "royalsocietypublishing.org",
-    actions.doi.providers.meta_dcIdentifier_doi
+    actions.doi.providers.meta_dcIdentifier_doi,
   )
   registerDOI("rupress.org")
   registerDOI("science.org", actions.doi.providers.meta_dcIdentifier_doi)
@@ -1434,7 +1513,7 @@ if (priv.doi_handler) {
   registerDOI("thelancet.com")
   registerDOI(
     "worldscientific.com",
-    actions.doi.providers.meta_dcIdentifier_doi
+    actions.doi.providers.meta_dcIdentifier_doi,
   )
 }
 

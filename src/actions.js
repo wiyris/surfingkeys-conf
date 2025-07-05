@@ -54,6 +54,10 @@ actions.scrollToHash = (hash = null) => {
   e.scrollIntoView({ behavior: "smooth" })
 }
 
+actions.openLast = () => {
+  RUNTIME("openLast")
+}
+
 // URL Manipulation/querying
 // -------------------------
 actions.vimEditURL = () =>
@@ -62,7 +66,7 @@ actions.vimEditURL = () =>
     (url) => {
       actions.openLink(url)
     },
-    "url"
+    "url",
   )
 
 actions.getOrgLink = () => `[[${window.location.href}][${document.title}]]`
@@ -182,7 +186,7 @@ actions.togglePdfViewer = () =>
 
 actions.previewLink = () =>
   util.createHints("a[href]", (a) =>
-    Front.showEditor(a.href, (url) => actions.openLink(url), "url")
+    Front.showEditor(a.href, (url) => actions.openLink(url), "url"),
   )
 
 actions.scrollElement = (el, dir) => {
@@ -240,7 +244,7 @@ actions.az.viewProduct = () => {
 actions.viewGodoc = () =>
   actions.openLink(
     `https://godoc.org/${util.getURLPath({ count: 2, domain: true })}`,
-    { newTab: true }
+    { newTab: true },
   )
 
 // Google
@@ -391,7 +395,7 @@ actions.gh.star =
       (e.parentElement ? hasDisplayNoneParent(e.parentElement) : false)
 
     const starContainers = Array.from(
-      document.querySelectorAll("div.starring-container")
+      document.querySelectorAll("div.starring-container"),
     ).filter((e) => !hasDisplayNoneParent(e))
 
     let container
@@ -410,7 +414,7 @@ actions.gh.star =
     }
 
     const repoUrl = container.parentElement.parentElement?.matches(
-      "ul.pagehead-actions"
+      "ul.pagehead-actions",
     )
       ? window.location.pathname
       : new URL(container.parentElement.querySelector("form").action).pathname
@@ -433,7 +437,7 @@ actions.gh.star =
         .querySelector(
           status
             ? ".starred button, button.starred"
-            : ".unstarred button, button.unstarred"
+            : ".unstarred button, button.unstarred",
         )
         .click()
     }
@@ -452,7 +456,7 @@ actions.gh.parseRepo = (url = window.location.href, rootOnly = false) => {
   const isRoot = rest.length === 0
   const cond =
     ["github.com", "gist.github.com", "raw.githubusercontent.com"].includes(
-      u.hostname
+      u.hostname,
     ) &&
     typeof user === "string" &&
     user.length > 0 &&
@@ -689,7 +693,7 @@ actions.gh.openSourceFile = () => {
 
 actions.gh.openProfile = () =>
   actions.gh.openPage(
-    `${document.querySelector("meta[name='user-login']").content}`
+    `${document.querySelector("meta[name='user-login']").content}`,
   )
 
 actions.gh.toggleLangStats = () =>
@@ -823,7 +827,7 @@ actions.gh.openFileFromClipboard = async ({ newTab = true } = {}) => {
 
   actions.openLink(
     `https://github.com/${dest.user}/${dest.repo}/tree/${dest.commitHash}/${clip}`,
-    { newTab }
+    { newTab },
   )
 }
 
@@ -854,13 +858,13 @@ actions.tw.openUser = () =>
     [].concat(
       [
         ...document.querySelectorAll(
-          "a[role='link'] img[src^='https://pbs.twimg.com/profile_images']"
+          "a[role='link'] img[src^='https://pbs.twimg.com/profile_images']",
         ),
       ].map((e) => e.closest("a")),
       [...document.querySelectorAll("a[role='link']")].filter((e) =>
-        e.text.match(/^@/)
-      )
-    )
+        e.text.match(/^@/),
+      ),
+    ),
   )
 
 // Bsky
@@ -885,7 +889,7 @@ actions.by.copyPostID = () => {
 actions.re = {}
 actions.re.collapseNextComment = () => {
   const vis = Array.from(
-    document.querySelectorAll(".noncollapsed.comment")
+    document.querySelectorAll(".noncollapsed.comment"),
   ).filter((e) => util.isElementInViewport(e))
   if (vis.length > 0) {
     vis[0].querySelector(".expand").click()
@@ -905,7 +909,7 @@ actions.hn.goParent = () => {
 
 actions.hn.collapseNextComment = () => {
   const vis = Array.from(document.querySelectorAll("a.togg")).filter(
-    (e) => e.innerText === "[–]" && util.isElementInViewport(e)
+    (e) => e.innerText === "[–]" && util.isElementInViewport(e),
   )
   if (vis.length > 0) {
     vis[0].click()
@@ -938,7 +942,7 @@ actions.hn.goPage = (dist = 1) => {
 actions.hn.openLinkAndComments = (e) => {
   const linkUrl = e.querySelector(".titleline>a").href
   const commentsUrl = e.nextElementSibling.querySelector(
-    "a[href^='item']:not(.titlelink)"
+    "a[href^='item']:not(.titlelink)",
   ).href
   actions.openLink(commentsUrl, { newTab: true })
   actions.openLink(linkUrl, { newTab: true })
@@ -951,10 +955,10 @@ actions.ph.openExternal = () => {
   Hints.create("ul[class^='postsList_'] > li > div[class^='item_']", (p) =>
     actions.openLink(
       p.querySelector(
-        "div[class^='meta_'] > div[class^='actions_'] > div[class^='minorActions_'] > a:nth-child(1)"
+        "div[class^='meta_'] > div[class^='actions_'] > div[class^='minorActions_'] > a:nth-child(1)",
       ).href,
-      { newTab: true }
-    )
+      { newTab: true },
+    ),
   )
 }
 
@@ -1004,7 +1008,7 @@ actions.wp.markdownSummary = () =>
       (acc, f) => (f(acc) && false) || acc,
       document
         .querySelector("#mw-content-text p:not([class]):not([id])")
-        .cloneNode(true)
+        .cloneNode(true),
     )
     .innerText.trim()}
 >
@@ -1018,7 +1022,7 @@ actions.nt.adjustTemp = (dir) =>
     .querySelector(
       `button[data-test='thermozilla-controller-controls-${
         dir > 0 ? "in" : "de"
-      }crement-button']`
+      }crement-button']`,
     )
     .click()
 
@@ -1029,7 +1033,7 @@ actions.nt.setMode = async (mode) => {
     if (q) return q
     popover
       .querySelector(
-        `button[data-test='thermozilla-mode-switcher-${mode}-button']`
+        `button[data-test='thermozilla-mode-switcher-${mode}-button']`,
       )
       .click()
     return util.until(query)
@@ -1057,7 +1061,7 @@ actions.nt.setFan = async (desiredState) => {
     if (q) return q
     popover
       .querySelector(
-        `div[data-test='thermozilla-fan-timer-${startStop}-button']`
+        `div[data-test='thermozilla-fan-timer-${startStop}-button']`,
       )
       .click()
     return util.until(query)
@@ -1068,7 +1072,7 @@ actions.nt.setFan = async (desiredState) => {
     const q = query()
     if (q) return q
     Hints.dispatchMouseClick(
-      listbox.querySelector("div[role='option']:last-child")
+      listbox.querySelector("div[role='option']:last-child"),
     )
     return util.until(query)
   }
@@ -1092,7 +1096,7 @@ actions.nt.setFan = async (desiredState) => {
 
   const fanRunning = () =>
     document.querySelector(
-      "div[data-test='thermozilla-aag-fan-listcell-title']"
+      "div[data-test='thermozilla-aag-fan-listcell-title']",
     )
 
   const startFan = async () => {
@@ -1123,7 +1127,7 @@ actions.re.focusSearch = () =>
   actions.dispatchMouseEvents(
     document.getElementById("docsearch"),
     "mousedown",
-    "click"
+    "click",
   )
 
 actions.re.scrollSidebar = (dir) =>
@@ -1148,7 +1152,7 @@ actions.ik.toggleProductDetails = async () => {
     document.querySelector(".range-revamp-expander__btn")
   const productDetailsButtonQuery = () =>
     document.querySelector(
-      ".range-revamp-product-information-section__button button"
+      ".range-revamp-product-information-section__button button",
     )
 
   const openProductDetailsModal = async () => {
