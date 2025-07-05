@@ -78,6 +78,12 @@ maps.global = [
       }),
   },
   {
+    alias: "n",
+    map: "f",
+    category: categories.mouseClick,
+    description: "Open a link, press SHIFT to flip overlapped hints, hold SPACE to hide hints",
+  },
+  {
     alias: "F",
     map: "gf",
     category: categories.mouseClick,
