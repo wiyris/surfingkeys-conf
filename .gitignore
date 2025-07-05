@@ -1,9 +1,5 @@
 *.priv.js
 
-# nodejs package
-flake.nix
-flake.lock
-
 ### Node ###
 # Logs
 logs
