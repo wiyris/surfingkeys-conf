@@ -20,14 +20,14 @@ export default `
   --font-size: 15.0px;
   --font-weight: bold;
 
-  --fg: #cad3f5;
-  --bg: #24273a;
-  --bg-dark: #1e2030;
-  --border: #6e738d;
-  --main-fg: #cad3f5;
-  --accent-fg: #b7bdf8;
-  --info-fg: #ed8796;
-  --select: #494d64;
+  --fg: #cdd6f4;
+  --bg: #1e1e2e;
+  --bg-dark: #181825;
+  --border: #6c7086;
+  --main-fg: #cdd6f4;
+  --accent-fg: #b4befe;
+  --info-fg: #cba6f7;
+  --select: #45475a;
 }
 
 /* ---------- Generic ---------- */
