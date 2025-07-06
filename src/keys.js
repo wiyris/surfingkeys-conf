@@ -72,7 +72,7 @@ maps.global = [
     category: categories.misc,
     description: "Open Startpage",
     callback: () =>
-      actions.openLink("https://matt-startpage.vercel.app/", {
+      actions.openLink("", {
         newTab: true,
         active: true,
       }),
