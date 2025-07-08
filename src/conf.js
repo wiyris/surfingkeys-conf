@@ -2,11 +2,13 @@ import theme from "./theme.js"
 import keys from "./keys.js"
 import searchEngines from "./search-engines.js"
 
+api.Hints.setCharacters('ahetincsypodulwgm');
+
 export default {
   settings: {
     digitForRepeat: false,
     hintAlign: "left",
-    hintCharacters: "ahetincsypodul=w'g.m", // handsdown
+    // hintCharacters: "ahetincsypodulwgm", // not work https://github.com/b0o/surfingkeys-conf/issues/81
     omnibarSuggestionTimeout: 500,
     focusFirstCandidate: false,
     richHintsForKeystroke: 1,
