@@ -16,9 +16,10 @@ Visual.style("cursor", "background-color: #8aadf4;")
 export default `
 :root {
   /* Font */
-  --font: 'JetBrainsMono Nerd Font';
-  --font-size: 15.0px;
-  --font-weight: bold;
+  // --font: 'JetBrainsMono Nerd Font';
+  --font: 'Maple Mono NF';
+  --font-size: 16.0px;
+  // --font-weight: bold;
 
   --fg: #cdd6f4;
   --bg: #1e1e2e;
