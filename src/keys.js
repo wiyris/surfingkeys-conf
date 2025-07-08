@@ -52,13 +52,7 @@ const maps = {}
 
 maps.global = [
   {
-    alias: "n",
-    map: "f",
-    category: categories.mouseClick,
-    description: "Open a link, press SHIFT to flip overlapped hints, hold SPACE to hide hints",
-  },
-  {
-    alias: "N",
+    alias: "F",
     map: "gf",
     category: categories.mouseClick,
     description: "Open a link in non-active new tab",
