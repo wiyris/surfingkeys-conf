@@ -12,7 +12,7 @@ export default {
     richHintsForKeystroke: 1,
     defaultSearchEngine: "bs",
     // smoothScroll: false,
-    scrollStepSize: 142,
+    scrollStepSize: 110,
     stealFocusOnLoad: false,
     theme,
   },
