@@ -6,7 +6,7 @@ export default {
   settings: {
     digitForRepeat: false,
     hintAlign: "left",
-    hintCharacters: "qwertasdfgzxcvb",
+    hintCharacters: "ahetincsypodul=w'g.m", // handsdown
     omnibarSuggestionTimeout: 500,
     focusFirstCandidate: false,
     richHintsForKeystroke: 1,
