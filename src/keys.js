@@ -40,6 +40,8 @@ const unmaps = {
     "p",
     "<Ctrl-j>",
     "<Ctrl-h>",
+    // "<ArrowUp>"
+    // "<ArrowDown>"
   ],
   searchAliases: {
     s: ["g", "d", "b", "e", "w", "s", "h", "y"],
@@ -50,7 +52,13 @@ const maps = {}
 
 maps.global = [
   {
-    alias: "F",
+    alias: "n",
+    map: "f",
+    category: categories.mouseClick,
+    description: "Open a link, press SHIFT to flip overlapped hints, hold SPACE to hide hints",
+  },
+  {
+    alias: "N",
     map: "gf",
     category: categories.mouseClick,
     description: "Open a link in non-active new tab",
@@ -74,13 +82,13 @@ maps.global = [
     description: "Scroll down",
   },
   {
-    alias: "<Ctrl-ArrowUp>",
+    alias: "<PageUp>",
     map: "e",
     category: categories.scroll,
     description: "Scroll half page up",
    },
   {
-    alias: "<Ctrl-ArrowDown>",
+    alias: "<PageDown>",
     map: "d",
     category: categories.scroll,
     description: "Scroll half page down",
