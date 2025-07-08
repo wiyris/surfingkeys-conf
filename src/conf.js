@@ -23,7 +23,7 @@ export default {
   searchEngines,
 
   // Leader for site-specific mappings
-  siteleader: "a",
+  siteleader: "<Space>",
 
   // Leader for OmniBar searchEngines
   searchleader: "s",
