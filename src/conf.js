@@ -2,7 +2,7 @@ import theme from "./theme.js"
 import keys from "./keys.js"
 import searchEngines from "./search-engines.js"
 
-api.Hints.setCharacters('ahetiscs=w'g.mypodul);
+api.Hints.setCharacters("ahetincsypodul=w'g.m;x/vbf");
 
 export default {
   settings: {
@@ -14,7 +14,7 @@ export default {
     richHintsForKeystroke: 1,
     defaultSearchEngine: "bs",
     // smoothScroll: false,
-    scrollStepSize: 110,
+    scrollStepSize: 120,
     stealFocusOnLoad: false,
     theme,
   },
