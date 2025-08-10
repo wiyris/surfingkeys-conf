@@ -38,10 +38,9 @@ const unmaps = {
     ";s",
     "yp",
     "p",
+    "t",
     "<Ctrl-j>",
     "<Ctrl-h>",
-    // "<ArrowUp>"
-    // "<ArrowDown>"
   ],
   searchAliases: {
     s: ["g", "d", "b", "e", "w", "s", "h", "y"],
@@ -51,6 +50,12 @@ const unmaps = {
 const maps = {}
 
 maps.global = [
+  {
+    alias: "t",
+    map: "T",
+    category: categories.tabs,
+    description: "Choose a tab",
+  },
   {
     alias: "F",
     map: "gf",
