@@ -41,6 +41,8 @@ const unmaps = {
     "t",
     "<Ctrl-j>",
     "<Ctrl-h>",
+    "x",
+    "X"
   ],
   searchAliases: {
     s: ["g", "d", "b", "e", "w", "s", "h", "y"],
@@ -48,6 +50,12 @@ const unmaps = {
 }
 
 const maps = {}
+
+api.vmap('<ArrowLeft>', 'h');
+api.vmap('<ArrowDown>', 'j');
+api.vmap('<ArrowUp>', 'k');
+api.vmap('<ArrowRight>', 'l');
+api.vmap('v', 'V');
 
 maps.global = [
   {
@@ -79,6 +87,11 @@ maps.global = [
     map: "j",
     category: categories.scroll,
     description: "Scroll down",
+  },
+  {
+    alias: "<ArrowUp>",
+    vmap: "k",
+    description: "forward line",
   },
   {
     alias: "<PageUp>",
