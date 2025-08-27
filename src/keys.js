@@ -41,6 +41,7 @@ const unmaps = {
     "t",
     "<Ctrl-j>",
     "<Ctrl-h>",
+    "<Alt-i>",
     "x",
     "X"
   ],
@@ -87,11 +88,6 @@ maps.global = [
     map: "j",
     category: categories.scroll,
     description: "Scroll down",
-  },
-  {
-    alias: "<ArrowUp>",
-    vmap: "k",
-    description: "forward line",
   },
   {
     alias: "<PageUp>",
