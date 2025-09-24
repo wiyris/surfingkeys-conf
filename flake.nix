@@ -1,5 +1,5 @@
 {
-  inputs.nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-24.11"; # Final channel that supports nogejs-18
+  inputs.nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-24.11";
   outputs = {
     self,
     nixpkgs,
