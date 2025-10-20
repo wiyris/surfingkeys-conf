@@ -13,7 +13,7 @@ export default {
     focusFirstCandidate: false,
     richHintsForKeystroke: 1,
     defaultSearchEngine: "bs",
-    // smoothScroll: false,
+    smoothScroll: false,
     scrollStepSize: 120,
     stealFocusOnLoad: false,
     theme,
