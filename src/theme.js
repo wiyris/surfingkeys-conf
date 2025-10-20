@@ -3,15 +3,15 @@ import api from "./api.js"
 const { Hints, Visual } = api
 
 Hints.style(
-  "border: solid 2px #6e738d; color:#8aadf4; font-size: 12px; font-weight: bold; background: initial; background-color: #1e2030;",
+  "border: solid 2px #6c7086; color:#b4befe; font-size: 12px; font-weight: bold; background: initial; background-color: #181825;",
 )
 Hints.style(
-  "border: solid 2px #6e738d !important; padding: 1px !important; color: #939ab7 !important; background: #181926 !important;",
+  "border: solid 2px #6c7086 !important; padding: 1px !important; color: #9399b2 !important; background: #11111b !important;",
   "text",
 )
 
-Visual.style("marks", "background-color: #ed8796;")
-Visual.style("cursor", "background-color: #8aadf4;")
+Visual.style("marks", "background-color: #f38ba8;")
+Visual.style("cursor", "background-color: #b4befe;")
 
 export default `
 :root {
@@ -20,14 +20,14 @@ export default `
   --font-size: 18.0px;
   --font-weight: bold;
 
-  --fg: #cad3f5;
-  --bg: #24273a;
-  --bg-dark: #1e2030;
-  --border: #6e738d;
-  --main-fg: #cad3f5;
-  --accent-fg: #b7bdf8;
-  --info-fg: #ed8796;
-  --select: #494d64;
+  --fg: #cdd6f4;
+  --bg: #1e1e2e;
+  --bg-dark: #181825;
+  --border: #6c7086;
+  --main-fg: #cdd6f4;
+  --accent-fg: #b4befe;
+  --info-fg: #f38ba8;
+  --select: #45475a;
 }
 
 /* ---------- Generic ---------- */
