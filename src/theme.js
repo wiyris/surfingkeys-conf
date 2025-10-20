@@ -2,13 +2,18 @@ import api from "./api.js"
 
 const { Hints, Visual } = api
 
-Hints.style(
-  "border: solid 2px #6c7086; color:#b4befe; font-size: 12px; font-weight: bold; background: initial; background-color: #181825;",
-)
-Hints.style(
-  "border: solid 2px #6c7086 !important; padding: 1px !important; color: #9399b2 !important; background: #11111b !important;",
-  "text",
-)
+// Hints.style(
+//   "border: solid 1px #6c7086; color:#b4befe; font-size: 12px; font-weight: bold; background: initial; background-color: #181825;",
+// )
+// Hints.style(
+//   "border: solid 1px #6c7086 !important; padding: 1px !important; color: #9399b2 !important; background: #11111b !important;",
+//   "text",
+// )
+
+const hintsCss =
+  "font-size: 13pt; font-family: 'Maple Mono NF', 'Cascadia Code', 'Helvetica Neue', Helvetica, Arial, sans-serif; border: 1px; color: #cdd6f4 !important; background: #1e1e2e; background-color: #1e1e2e";
+api.Hints.style(hintsCss);
+api.Hints.style(hintsCss, "text");
 
 Visual.style("marks", "background-color: #f38ba8;")
 Visual.style("cursor", "background-color: #b4befe;")
