@@ -59,12 +59,12 @@ api.vmap('<ArrowRight>', 'l');
 api.vmap('v', 'V');
 
 maps.global = [
-  {
-    alias: "t",
-    map: "T",
-    category: categories.tabs,
-    description: "Choose a tab",
-  },
+  // {
+  //   alias: "t",
+  //   map: "T",
+  //   category: categories.tabs,
+  //   description: "Choose a tab",
+  // },
   {
     alias: "F",
     map: "gf",
@@ -89,18 +89,18 @@ maps.global = [
     category: categories.scroll,
     description: "Scroll down",
   },
-  {
-    alias: "<PageUp>",
-    map: "e",
-    category: categories.scroll,
-    description: "Scroll half page up",
-   },
-  {
-    alias: "<PageDown>",
-    map: "d",
-    category: categories.scroll,
-    description: "Scroll half page down",
-  },
+  // {
+  //   alias: "<PageUp>",
+  //   map: "e",
+  //   category: categories.scroll,
+  //   description: "Scroll half page up",
+  //  },
+  // {
+  //   alias: "<PageDown>",
+  //   map: "d",
+  //   category: categories.scroll,
+  //   description: "Scroll half page down",
+  // },
   {
     alias: "gh",
     category: categories.scroll,
