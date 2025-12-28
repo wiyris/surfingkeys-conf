@@ -10,6 +10,8 @@ export default {
     richHintsForKeystroke: 1,
     defaultSearchEngine: "ka",
     stealFocusOnLoad: false,
+    smoothScroll: false,
+    scrollStepSize: 120,
     theme,
   },
 
