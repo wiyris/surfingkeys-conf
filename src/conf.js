@@ -2,10 +2,12 @@ import theme from "./theme.js"
 import keys from "./keys.js"
 import searchEngines from "./search-engines.js"
 
+api.Hints.setCharacters("fpdlxsthkvwgm");
+
 export default {
   settings: {
     hintAlign: "left",
-    hintCharacters: "qwertasdfgzxcvb",
+    // hintCharacters: "qwertasdfgzxcvb", // not work https://github.com/b0o/surfingkeys-conf/issues/81
     omnibarSuggestionTimeout: 500,
     richHintsForKeystroke: 1,
     defaultSearchEngine: "ka",
