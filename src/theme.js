@@ -1,156 +1,250 @@
-const commonStyles = `
-  body {
-    font-family: "Input Mono", "DejaVu Sans Mono", DejaVu, Arial, sans-serif;
-    font-size: 12pt;
-  }
+import api from "./api.js"
 
-  #sk_keystroke kbd {
-    font-family: "Sudo Nerd Font Mono", "Sudo Mono", "Sudo",
-      "Input Mono Nerd Font", "Input Mono", "DejaVu Sans Mono", "DejaVu", "Arial",
-      sans-serif;
-    font-size: 10pt;
-  }
+const { Hints, Visual } = api
 
-  #sk_omnibarSearchArea {
-    margin: 0 !important;
-    padding: 0.5rem 1rem !important;
-    border-bottom: none !important;
-  }
+// Hints.style(
+//   "border: solid 1px #6c7086; color:#b4befe; font-size: 12px; font-weight: bold; background: initial; background-color: #181825;",
+// )
+// Hints.style(
+//   "border: solid 1px #6c7086 !important; padding: 1px !important; color: #9399b2 !important; background: #11111b !important;",
+//   "text",
+// )
 
-  #sk_omnibarSearchResult {
-    margin: 0 !important;
-  }
+const hintsCss =
+  "font-size: 13pt; font-family: 'Maple Mono NF', 'Cascadia Code', 'Helvetica Neue', Helvetica, Arial, sans-serif; border: 1px; color: #cdd6f4 !important; background: #1e1e2e; background-color: #1e1e2e";
+api.Hints.style(hintsCss);
+api.Hints.style(hintsCss, "text");
 
-  #sk_omnibar li {
-    background: none !important;
-    padding: 0.35rem 0.5rem !important;
-  }
+Visual.style("marks", "background-color: #cba6f7;")
+Visual.style("cursor", "background-color: #b4befe;")
 
-  #sk_omnibarSearchResult > ul:nth-child(1) {
-    margin-bottom: 0px !important;
-    padding: 0 !important;
-    padding-bottom: 10px !important;
-  }
+export default `
+:root {
+  /* Font */
+  --font: 'Maple Mono NF';
+  --font-size: 18.0px;
+  --font-weight: bold;
 
-  #sk_omnibar .separator {
-    padding-left: 8px !important;
-  }
+  --fg: #cdd6f4;
+  --bg: #1e1e2e;
+  --bg-dark: #181825;
+  --border: #6c7086;
+  --main-fg: #cdd6f4;
+  --accent-fg: #b4befe;
+  --info-fg: #cba6f7;
+  --select: #45475a;
+}
 
-  /* Disable RichHints CSS animation */
-  .expandRichHints {
-    animation: none;
-  }
-  .collapseRichHints {
-    animation: none;
-  }
-`;
+/* ---------- Generic ---------- */
+.sk_theme {
+background: var(--bg);
+color: var(--fg);
+  background-color: var(--bg);
+  border-color: var(--border);
+  font-family: var(--font);
+  font-size: var(--font-size);
+}
 
-const lightTheme = `
-  body {
-    color: #483270;
-  }
+input {
+  font-family: var(--font);
+  font-weight: var(--font-weight);
+}
 
-  #sk_omnibar {
-    background-color: #f5f3fd !important;
-    color: #59446f !important;
-    box-shadow: 0px 3px 15px -6px rgba(53, 13, 81, 0.7) !important;
-  }
+.sk_theme tbody {
+  color: var(--fg);
+}
 
-  #sk_omnibar .prompt {
-    color: #c2b2d7 !important;
-  }
+.sk_theme input {
+  color: var(--fg);
+}
 
-  #sk_omnibar .separator {
-    color: #d4b1ff !important;
-  }
+#sk_tabs .sk_tab {
+  background: var(--bg-dark);
+  border: 1px solid var(--border);
+}
 
-  #sk_omnibar input {
-    color: #351d53 !important;
-  }
+#sk_tabs .sk_tab_title {
+  color: var(--fg);
+}
 
-  #sk_omnibarSearchResult {
-    border-top: 1px solid #e1cff5 !important;
-  }
+#sk_tabs .sk_tab_url {
+  color: var(--main-fg);
+}
 
-  #sk_omnibar li.focused {
-    background-color: #e1ddff !important;
-    color: #351d53 !important;
-  }
+#sk_tabs .sk_tab_hint {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  color: var(--accent-fg);
+}
 
-  #sk_banner,
-  #sk_keystroke {
-    border: 1px solid #d7b0ff;
-    background: #e9d9ee;
-  }
+.sk_theme #sk_frame {
+  background: var(--bg);
+  opacity: 0.2;
+  color: var(--accent-fg);
+}
 
-  #sk_keystroke .annotation {
-    color: #483270;
-  }
+/* ---------- Omnibar ---------- */
+/* Uncomment this and use settings.omnibarPosition = 'bottom' for Pentadactyl/Tridactyl style bottom bar */
+/* .sk_theme#sk_omnibar {
+  width: 100%;
+  left: 0;
+} */
 
-  #sk_keystroke kbd {
-    color: black;
-    background: white;
-  }
+.sk_theme .title {
+  color: var(--accent-fg);
+}
 
-  #sk_keystroke kbd .candidates {
-    color: #ff7a75;
-  }
-`;
+.sk_theme .url {
+  color: var(--main-fg);
+}
 
-const darkTheme = `
-  body {
-    color: #d7b0ff;
-  }
+.sk_theme .annotation {
+  color: var(--accent-fg);
+}
 
-  #sk_omnibar {
-    background-color: #2a323e;
-    color: #cad1d7;
-  }
+.sk_theme .omnibar_highlight {
+  color: var(--accent-fg);
+}
 
-  #sk_omnibar .prompt {
-    color: #eef5fb !important;
-  }
+.sk_theme .omnibar_timestamp {
+  color: var(--info-fg);
+}
 
-  #sk_omnibar .separator {
-    color: #8af4ff !important;
-    padding-left: 8px !important;
-  }
+.sk_theme .omnibar_visitcount {
+  color: var(--accent-fg);
+}
 
-  #sk_omnibar input {
-    color: white !important;
-  }
+.sk_theme #sk_omnibarSearchResult ul li:nth-child(odd) {
+  background: var(--bg-dark);
+}
 
-  #sk_omnibarSearchResult {
-    border-top: 1px solid #545f6f !important;
-  }
+.sk_theme #sk_omnibarSearchResult ul li.focused {
+  background: #363a4f;
+}
 
-  #sk_omnibar li.focused {
-    background: #181d24 !important;
-    color: #eef5fb !important;
-  }
+.sk_theme #sk_omnibarSearchArea {
+  border-top-color: var(--border);
+  border-bottom-color: var(--border);
+}
 
-  #sk_banner,
-  #sk_keystroke {
-    border: 1px solid #d7b0ff;
-    background: #483270;
-  }
+.sk_theme #sk_omnibarSearchArea input,
+.sk_theme #sk_omnibarSearchArea span {
+  font-size: var(--font-size);
+}
 
-  #sk_keystroke .annotation {
-    color: #d7b0ff;
-  }
+.sk_theme .separator {
+  color: var(--accent-fg);
+}
 
-  #sk_keystroke kbd {
-    color: #fff;
-    background: #7a57a4;
-    border: 1px solid #2d0080;
-    box-shadow: none;
-  }
+/* ---------- Popup Notification Banner ---------- */
+#sk_banner {
+  font-family: var(--font);
+  font-size: var(--font-size);
+  font-weight: var(--font-weight);
+  background: var(--bg);
+  border-color: var(--border);
+  color: var(--fg);
+  opacity: 0.9;
+}
 
-  #sk_keystroke kbd .candidates {
-    color: #ff8cf8;
-  }
-`;
+/* ---------- Popup Keys ---------- */
+#sk_keystroke {
+  background-color: var(--bg);
+}
 
-const isDarkMode = typeof window !== 'undefined' && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+.sk_theme kbd .candidates {
+  color: var(--info-fg);
+}
 
-export default commonStyles + (isDarkMode ? darkTheme : lightTheme);
+.sk_theme span.annotation {
+  color: var(--accent-fg);
+}
+
+/* ---------- Popup Translation Bubble ---------- */
+#sk_bubble {
+  background-color: var(--bg) !important;
+  color: var(--fg) !important;
+  border-color: var(--border) !important;
+}
+
+#sk_bubble * {
+  color: var(--fg) !important;
+}
+
+#sk_bubble div.sk_arrow div:nth-of-type(1) {
+  border-top-color: var(--border) !important;
+  border-bottom-color: var(--border) !important;
+}
+
+#sk_bubble div.sk_arrow div:nth-of-type(2) {
+  border-top-color: var(--bg) !important;
+  border-bottom-color: var(--bg) !important;
+}
+
+/* ---------- Search ---------- */
+#sk_status,
+#sk_find {
+  font-size: var(--font-size);
+  border-color: var(--border);
+}
+
+.sk_theme kbd {
+  background: var(--bg-dark);
+  border-color: var(--border);
+  box-shadow: none;
+  color: var(--fg);
+}
+
+.sk_theme .feature_name span {
+  color: var(--main-fg);
+}
+
+/* ---------- ACE Editor ---------- */
+#sk_editor {
+  background: var(--bg-dark) !important;
+  height: 50% !important;
+  /* Remove this to restore the default editor size */
+}
+
+.ace_dialog-bottom {
+  border-top: 1px solid var(--bg) !important;
+}
+
+.ace-chrome .ace_print-margin,
+.ace_gutter,
+.ace_gutter-cell,
+.ace_dialog {
+  background: var(--bg) !important;
+}
+
+.ace-chrome {
+  color: var(--fg) !important;
+}
+
+.ace_gutter,
+.ace_dialog {
+  color: var(--fg) !important;
+}
+
+.ace_cursor {
+  color: var(--fg) !important;
+}
+
+.normal-mode .ace_cursor {
+  background-color: var(--fg) !important;
+  border: var(--fg) !important;
+  opacity: 0.7 !important;
+}
+
+.ace_marker-layer .ace_selection {
+  background: var(--select) !important;
+}
+
+.ace_editor,
+.ace_dialog span,
+.ace_dialog input {
+  font-family: var(--font);
+  font-size: var(--font-size);
+  font-weight: var(--font-weight);
+}
+`
