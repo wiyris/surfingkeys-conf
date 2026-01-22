@@ -41,7 +41,8 @@ const unmaps = {
     "<Ctrl-j>",
     "<Ctrl-h>",
 
-    "x"
+    "x",
+    "X",
   ],
   searchAliases: {
     s: ["g", "d", "b", "e", "w", "s", "h", "y"],
@@ -225,32 +226,32 @@ maps.global = [
     callback: () =>
       actions.openLink(actions.getDnsInfoUrl({ all: true }), { newTab: true }),
   },
-  {
-    alias: "=c",
-    category: categories.misc,
-    description: "Show Google's cached version of page",
-    callback: () =>
-      actions.openLink(actions.getGoogleCacheUrl(), { newTab: true }),
-  },
+  // {
+  //   alias: "=c",
+  //   category: categories.misc,
+  //   description: "Show Google's cached version of page",
+  //   callback: () =>
+  //     actions.openLink(actions.getGoogleCacheUrl(), { newTab: true }),
+  // },
   {
     alias: "=a",
     category: categories.misc,
     description: "Show Archive.org Wayback Machine for page",
     callback: () => actions.openLink(actions.getWaybackUrl(), { newTab: true }),
   },
-  {
-    alias: "=A",
-    category: categories.misc,
-    description: "Show Alexa.com info for domain",
-    callback: () => actions.openLink(actions.getAlexaUrl(), { newTab: true }),
-  },
-  {
-    alias: "=s",
-    category: categories.misc,
-    description: "View social discussions for page",
-    callback: () =>
-      actions.openLink(actions.getDiscussionsUrl(), { newTab: true }),
-  },
+  // {
+  //   alias: "=A",
+  //   category: categories.misc,
+  //   description: "Show Alexa.com info for domain",
+  //   callback: () => actions.openLink(actions.getAlexaUrl(), { newTab: true }),
+  // },
+  // {
+  //   alias: "=s",
+  //   category: categories.misc,
+  //   description: "View social discussions for page",
+  //   callback: () =>
+  //     actions.openLink(actions.getDiscussionsUrl(), { newTab: true }),
+  // },
   {
     alias: "=S",
     category: categories.misc,
@@ -283,18 +284,18 @@ maps.global = [
     description: "Toggle PDF viewer from SurfingKeys",
     callback: actions.togglePdfViewer,
   },
-  {
-    alias: "gxE",
-    map: "gxt",
-    category: categories.tabs,
-    description: "Close tab to left",
-  },
-  {
-    alias: "gxR",
-    map: "gxT",
-    category: categories.tabs,
-    description: "Close tab to right",
-  },
+  // {
+  //   alias: "gxE",
+  //   map: "gxt",
+  //   category: categories.tabs,
+  //   description: "Close tab to left",
+  // },
+  // {
+  //   alias: "gxR",
+  //   map: "gxT",
+  //   category: categories.tabs,
+  //   description: "Close tab to right",
+  // },
   {
     alias: "\\cgh",
     category: categories.clipboard,
@@ -305,12 +306,12 @@ maps.global = [
       actions.openLink(url, { newTab: true })
     },
   },
-  {
-    alias: "F",
-    map: "gf",
-    category: categories.mouseClick,
-    description: "Open a link in non-active new tab",
-  },
+  // {
+  //   alias: "F",
+  //   map: "gf",
+  //   category: categories.mouseClick,
+  //   description: "Open a link in non-active new tab",
+  // },
   {
     alias: "oh",
     category: categories.omnibar,
