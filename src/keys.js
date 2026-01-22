@@ -40,6 +40,8 @@ const unmaps = {
     "p",
     "<Ctrl-j>",
     "<Ctrl-h>",
+
+    "x"
   ],
   searchAliases: {
     s: ["g", "d", "b", "e", "w", "s", "h", "y"],
@@ -50,40 +52,70 @@ const maps = {}
 
 maps.global = [
   {
-    alias: "F",
+    alias: "h",
+    map: "f",
+    category: categories.mouseClick,
+    description: "Open a link, press SHIFT to flip overlapped hints, hold SPACE to hide hints",
+  },
+  {
+    alias: "H",
     map: "gf",
     category: categories.mouseClick,
     description: "Open a link in non-active new tab",
+  },
+  {
+    alias: "xx",
+    map: "gxx",
+    category: categories.tabs,
+    description: "Close all tabs except current one",
+  },
+  {
+    alias: "xp",
+    map: "gxp",
+    category: categories.tabs,
+    description: "Close playing tab",
+  },
+  {
+    alias: "xt",
+    map: "gxt",
+    category: categories.tabs,
+    description: "Close tab to left",
+  },
+  {
+    alias: "xT",
+    map: "gxT",
+    category: categories.tabs,
+    description: "Close tab to right",
+  },
+  {
+    alias: "xl",
+    map: "gx0",
+    category: categories.tabs,
+    description: "Close all tabs on left",
+  },
+  {
+    alias: "xr",
+    map: "gx$",
+    category: categories.tabs,
+    description: "Close all tabs on right",
+  },
+  {
+    alias: "<",
+    map: "<<",
+    category: categories.tabs,
+    description: "Move current tab to left",
+  },
+  {
+    alias: ">",
+    map: ">>",
+    category: categories.tabs,
+    description: "Move current tab to right",
   },
   {
     alias: "zf",
     category: categories.mouseClick,
     description: "Open link URL in vim editor",
     callback: actions.previewLink,
-  },
-  {
-    alias: "w",
-    map: "k",
-    category: categories.scroll,
-    description: "Scroll up",
-  },
-  {
-    alias: "s",
-    map: "j",
-    category: categories.scroll,
-    description: "Scroll down",
-  },
-  {
-    alias: "K",
-    map: "e",
-    category: categories.scroll,
-    description: "Scroll half page up",
-  },
-  {
-    alias: "J",
-    map: "d",
-    category: categories.scroll,
-    description: "Scroll half page down",
   },
   {
     alias: "gh",
