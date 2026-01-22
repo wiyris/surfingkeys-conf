@@ -2,7 +2,7 @@ import theme from "./theme.js"
 import keys from "./keys.js"
 import searchEngines from "./search-engines.js"
 
-api.Hints.setCharacters("fpdlxsthkvwgm");
+api.Hints.setCharacters("ahetincsr"); // homerow + thumub keys
 
 export default {
   settings: {
